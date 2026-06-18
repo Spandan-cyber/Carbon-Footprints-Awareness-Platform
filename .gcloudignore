@@ -1,0 +1,11 @@
+.gcloudignore
+.git
+.gitignore
+node_modules/
+.gemini/
+tests/
+package-lock.json
+README.md
+task.md
+walkthrough.md
+implementation_plan.md

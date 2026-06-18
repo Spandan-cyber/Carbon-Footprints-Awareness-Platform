@@ -1,0 +1,25 @@
+runtime: python311
+
+handlers:
+- url: /
+  static_files: dist/index.html
+  upload: dist/index.html
+
+- url: /dashboard.html
+  static_files: dist/dashboard.html
+  upload: dist/dashboard.html
+
+- url: /assistant.html
+  static_files: dist/assistant.html
+  upload: dist/assistant.html
+
+- url: /profile.html
+  static_files: dist/profile.html
+  upload: dist/profile.html
+
+- url: /assets
+  static_dir: dist/assets
+
+- url: /(.*)
+  static_files: dist/\1
+  upload: dist/(.*)
