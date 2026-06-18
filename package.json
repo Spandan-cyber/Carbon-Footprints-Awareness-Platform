@@ -7,9 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node tests/calculator.test.js"
+    "test": "node tests/run_all.js"
   },
   "devDependencies": {
+    "firebase-tools": "^15.21.0",
     "vite": "^5.2.0"
   },
   "dependencies": {

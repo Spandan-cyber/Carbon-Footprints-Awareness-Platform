@@ -64,7 +64,6 @@ try {
   assert.strictEqual(ecoResult.sectors.consumption, 0.4, 'Consumption style should match minimalist');
 
   console.log('\n🎉 All carbon calculations unit tests passed successfully!');
-  process.exit(0);
 
 } catch (error) {
   console.error('\n❌ Carbon calculator unit tests failed!');
