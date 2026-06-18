@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sylva — User Profile & Account Settings</title>
+  <meta name="description" content="Manage your Sylva account profile settings, view your carbon savings level and achievements, or export your carbon data backup.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <!-- Google Fonts: Nunito -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <!-- Premium Loading Screen Overlay -->
+  <div id="loading-screen" class="loading-screen" aria-hidden="false">
+    <div class="loading-content">
+      <!-- Forest Themed Seedling Loader -->
+      <div class="theme-loader-wrapper">
+        <svg class="theme-loader" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9.5" stroke="rgba(52, 211, 153, 0.12)" stroke-width="1.5" />
+          <path d="M12 2.5a9.5 9.5 0 0 1 9.5 9.5c0 2.2-.7 4.2-2 5.8" class="spinning-arc" />
+          <g class="loader-seedling">
+            <path d="M12 18.5v-7.5" />
+            <path d="M12 14.5c-2.2-1.5-3.5-1-4 1s1.5 2 4 0.5z" />
+            <path d="M12 12.5c2.2-1.5 3.5-1 4 1s-1.5 2-4 0.5z" />
+          </g>
+        </svg>
+      </div>
+      <div class="loading-title">Sylva</div>
+      <div class="loading-subtitle">Retrieving your forest stats...</div>
+      <div class="loading-bar-track">
+        <div class="loading-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Forest Canopy Wallpaper Backdrop -->
+  <div class="forest-wallpaper" aria-hidden="true">
+    <canvas id="forest-canvas"></canvas>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-area" onclick="window.location.href='index.html'">
+        <svg class="line-icon logo-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Sole + Heel outline -->
+          <path d="M 8 9.5 C 8 8 10 7.5 13 7.5 C 16.5 7.5 18 9 18 12 C 18 15 15.5 16.5 15.5 19.5 C 15.5 21.5 14 22 12 22 C 10 22 8.5 21.5 8.5 19.5 C 8.5 17 10.5 15.5 10.5 13.5 C 10.5 11.5 8 11 8 9.5 Z" />
+          <!-- Toes outlines -->
+          <ellipse cx="7.5" cy="4.2" rx="1.6" ry="2.1" transform="rotate(-10 7.5 4.2)" />
+          <ellipse cx="11.2" cy="4.2" rx="1.2" ry="1.6" transform="rotate(-5 11.2 4.2)" />
+          <ellipse cx="14.5" cy="5" rx="1.0" ry="1.4" transform="rotate(5 14.5 5)" />
+          <ellipse cx="17.5" cy="6.5" rx="0.8" ry="1.2" transform="rotate(15 17.5 6.5)" />
+          <ellipse cx="20.2" cy="8.5" rx="0.7" ry="1.0" transform="rotate(25 20.2 8.5)" />
+        </svg>
+        <h1 class="logo-text">Sylva</h1>
+      </div>
+      <!-- Shared Nav Menu -->
+      <nav class="header-nav" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link" id="nav-calculator">
+          <svg class="line-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <line x1="9" y1="9" x2="15" y2="9" />
+            <line x1="9" y1="13" x2="15" y2="13" />
+            <line x1="9" y1="17" x2="15" y2="17" />
+          </svg>
+          Calculator
+        </a>
+        <a href="dashboard.html" class="nav-link" id="nav-dashboard">
+          <svg class="line-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
+          </svg>
+          Dashboard
+        </a>
+        <a href="assistant.html" class="nav-link" id="nav-assistant">
+          <svg class="line-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+          Gaia Coach
+        </a>
+      </nav>
+      <div class="header-metrics">
+        <div class="global-score-pill">
+          <span class="pill-label">Net Footprint</span>
+          <span class="pill-value" id="header-footprint-value">0.00</span>
+          <span class="pill-unit">t/yr</span>
+        </div>
+        <div id="auth-header-container" class="auth-header-container"></div>
+      </div>
+    </header>
+
+    <!-- Main Profile Layout (2 Columns Grid) -->
+    <main class="profile-layout">
+      <!-- Left Column: User Card & Level XP -->
+      <div class="profile-left-col">
+        <div class="card glass-card user-identity-card">
+          <div class="user-profile-header">
+            <div class="profile-page-avatar-wrapper" id="btn-change-avatar" title="Click to upload a custom profile picture">
+              <img id="profile-page-avatar" class="profile-page-avatar" src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y" alt="User Avatar">
+              <div class="avatar-edit-overlay">
+                <svg class="line-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                  <circle cx="12" cy="13" r="4" />
+                </svg>
+              </div>
+              <input type="file" id="profile-upload-input" accept="image/*" style="display: none;">
+            </div>
+            <div class="profile-name-container">
+              <h2 id="profile-page-name" class="profile-page-name">Forest Protector</h2>
+              <input type="text" id="profile-name-input" class="profile-name-input" style="display: none;" maxlength="24">
+              <button id="btn-edit-name" class="btn-edit-name" title="Edit Name">
+                <svg class="line-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                  <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                </svg>
+              </button>
+            </div>
+            <p id="profile-page-email" class="profile-page-email">loading account...</p>
+          </div>
+        </div>
+
+        <div class="card glass-card profile-xp-card">
+          <div class="xp-header">
+            <div class="xp-badge">
+              <svg class="line-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            </div>
+            <div class="xp-title-block">
+              <h3 class="card-subtitle">Carbon Savings Level</h3>
+              <div class="xp-level-title" id="xp-user-title">Leaf Cadet</div>
+            </div>
+            <div class="xp-level-badge">LVL <span id="xp-level-num">1</span></div>
+          </div>
+          
+          <div class="xp-progress-bar-container">
+            <div class="xp-progress-track">
+              <div class="xp-progress-fill" id="xp-fill-progress" style="width: 0%;">
+                <div class="xp-shimmer"></div>
+              </div>
+            </div>
+            <div class="xp-values">
+              <span><strong id="xp-current-val">0</strong> XP</span>
+              <span class="xp-divider">/</span>
+              <span><strong id="xp-needed-val">100</strong> XP to Level Up</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Settings & Data Actions -->
+      <div class="profile-right-col">
+        <div class="card glass-card profile-settings-card">
+          <div class="card-header">
+            <h2 class="section-title">
+              <svg class="line-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+              </svg>
+              Profile Settings & Actions
+            </h2>
+            <p class="section-subtitle">Manage your cloud profile connection, export a data backup, or wipe your account progress.</p>
+          </div>
+
+          <!-- Sync Banner -->
+          <div class="settings-sync-box" id="settings-sync-box">
+            <div class="sync-box-icon">
+              <svg class="line-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+                <path d="M22 12A10 10 0 0 0 12 2v10z" />
+              </svg>
+            </div>
+            <div class="sync-box-details">
+              <div class="sync-status-header" id="sync-status-header">Connecting...</div>
+              <div class="sync-status-desc" id="sync-status-desc">Synchronizing details with Firestore cloud storage.</div>
+            </div>
+          </div>
+
+          <div class="settings-divider"></div>
+
+          <!-- Action Buttons -->
+          <div class="profile-actions-grid">
+            <div class="action-item-card">
+              <div class="action-item-info">
+                <h4 class="action-item-title">Export Profile Data</h4>
+                <p class="action-item-desc">Download a complete JSON backup of your carbon inputs, habits achievements, and Gaia Coach logs.</p>
+              </div>
+              <button class="settings-action-btn primary-action-btn" id="btn-profile-export">
+                <svg class="line-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Export Data (.json)
+              </button>
+            </div>
+
+            <div class="action-item-card">
+              <div class="action-item-info">
+                <h4 class="action-item-title">Reset Account Progress</h4>
+                <p class="action-item-desc">Wipe all inputs, chat logs, and adopted habits from both the browser cache and your cloud profile. This action cannot be undone.</p>
+              </div>
+              <button class="settings-action-btn danger-action-btn" id="btn-profile-reset">
+                <svg class="line-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6" />
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                  <line x1="10" y1="11" x2="10" y2="17" />
+                  <line x1="14" y1="11" x2="14" y2="17" />
+                </svg>
+                Reset Progress
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="/src/profile_page.js"></script>
+</body>
+</html>
